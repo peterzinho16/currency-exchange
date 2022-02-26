@@ -1,8 +1,7 @@
-package com.bindord.eureka.auth.generic;
+package com.example.currencyexchange.generic;
 
-import com.bindord.eureka.auth.advice.CustomValidationException;
-import com.bindord.eureka.auth.advice.NotFoundValidationException;
-import io.reactivex.Single;
+import com.example.currencyexchange.advice.CustomValidationException;
+import com.example.currencyexchange.advice.NotFoundValidationException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -10,7 +9,7 @@ public interface BaseService<T, V> {
 
     Mono<T> save(T entity) throws NotFoundValidationException, CustomValidationException;
 
-    Mono<T> update(T entity) throws NotFoundValidationException, CustomValidationException;
+    Mono<T> update(T entity);
 
     Mono<T> findOne(V id) throws NotFoundValidationException;
 

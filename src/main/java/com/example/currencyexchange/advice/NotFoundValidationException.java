@@ -1,4 +1,4 @@
-package com.bindord.eureka.auth.advice;
+package com.example.currencyexchange.advice;
 
 public class NotFoundValidationException extends Exception {
 

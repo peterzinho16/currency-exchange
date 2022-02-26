@@ -1,4 +1,4 @@
-package com.itsight.epay.rsrc.domain.response;
+package com.example.currencyexchange.domain.response;
 
 public class ErrorResponse {
 

@@ -1,4 +1,4 @@
-package com.bindord.eureka.auth.annotation;
+package com.example.currencyexchange.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

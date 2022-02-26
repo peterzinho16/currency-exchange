@@ -1,58 +1,62 @@
-package com.bindord.eureka.auth.controller;
+package com.example.currencyexchange.controller;
 
-import com.bindord.eureka.auth.advice.CustomValidationException;
-import com.bindord.eureka.auth.advice.NotFoundValidationException;
-import com.bindord.eureka.auth.domain.master.MsProfession;
-import com.bindord.eureka.auth.service.MsProfessionService;
-import com.bindord.eureka.auth.validator.Validator;
+import com.example.currencyexchange.advice.CustomValidationException;
+import com.example.currencyexchange.advice.NotFoundValidationException;
+import com.example.currencyexchange.domain.Currency;
+import com.example.currencyexchange.service.CurrencyService;
+import com.example.currencyexchange.validator.Validator;
 import io.reactivex.Single;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @RestController
-@RequestMapping("${service.ingress.context-path}/ms-profession")
+@RequestMapping("${service.ingress.context-path}/currency")
 @Slf4j
-public class MsProfessionController {
+public class CurrencyController {
 
     private final Validator validator;
 
-    private final MsProfessionService msProfessionService;
+    private final CurrencyService currencyService;
 
-    public MsProfessionController(Validator validator, MsProfessionService msProfessionService) {
+    public CurrencyController(Validator validator, CurrencyService currencyService) {
         this.validator = validator;
-        this.msProfessionService = msProfessionService;
+        this.currencyService = currencyService;
     }
 
-    @ApiResponse(description = "Storage a professional",
-            responseCode = "200")
+    @ApiResponse(description = "Storage a currency",
+            responseCode = "201")
     @PostMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public Mono<MsProfession> save(@Valid @RequestBody MsProfession msProfession) throws CustomValidationException, NotFoundValidationException {
-        return msProfessionService.save(msProfession);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Mono<Void> save(@Valid @RequestBody Currency currency) throws CustomValidationException, NotFoundValidationException {
+        return currencyService.save(currency)
+                .then(Mono.empty());
     }
 
-    @ApiResponse(description = "Get all professionals",
+    @ApiResponse(description = "Get all currencies",
             responseCode = "200")
     @PreAuthorize("hasRole('ROLE_UMA_AUTHORIZATION')")
     @GetMapping(value = "",
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.ALL_VALUE})
-    public Flux<MsProfession> getAll() {
-        return msProfessionService.findAll();
+    public Flux<Currency> getAll(
+            @RequestHeader(required = true, name = "Authorization") String authorization) {
+        return currencyService.findAll();
     }
 
     @ApiResponses({
-            @ApiResponse(description = "Delete all professionals",
+            @ApiResponse(description = "Delete all currencies",
                     responseCode = "200"),
             @ApiResponse(description = "Operation failed",
                     responseCode = "400")
@@ -61,19 +65,12 @@ public class MsProfessionController {
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.ALL_VALUE})
     public Mono<Void> removeAll() throws CustomValidationException, NotFoundValidationException {
-        return msProfessionService.delete();
-    }
-
-    @GetMapping(value = "")
-    public String listarDataDriver() {
-        Flux<MsProfession> workersFlux = msProfessionService.findAll();
-        return "success";
+        return currencyService.delete();
     }
 
     @GetMapping(value = "/{id}")
-    public Single<MsProfession> listarDataDriver(@PathVariable String id) throws NotFoundValidationException {
-        return validator.validateUUIDFormat(id)
-                .andThen(msProfessionService.findById(UUID.fromString(id)));
+    public Single<Currency> getById(@PathVariable Integer id) throws NotFoundValidationException {
+        return currencyService.findById(id);
     }
 
 }

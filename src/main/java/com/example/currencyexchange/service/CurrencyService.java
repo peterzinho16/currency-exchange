@@ -1,15 +1,13 @@
-package com.bindord.eureka.auth.service;
+package com.example.currencyexchange.service;
 
-import com.bindord.eureka.auth.advice.NotFoundValidationException;
-import com.bindord.eureka.auth.domain.master.MsProfession;
-import com.bindord.eureka.auth.generic.BaseService;
+import com.example.currencyexchange.advice.NotFoundValidationException;
+import com.example.currencyexchange.domain.Currency;
+import com.example.currencyexchange.generic.BaseService;
 import io.reactivex.Single;
-import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
-@Repository
-public interface MsProfessionService extends BaseService<MsProfession, UUID> {
+public interface CurrencyService extends BaseService<Currency, Integer> {
 
-    Single<MsProfession> findById(UUID id) throws NotFoundValidationException;
+    Single<Currency> findById(Integer id) throws NotFoundValidationException;
 }

@@ -1,10 +1,10 @@
 package com.example.currencyexchange.repository;
 
-import com.example.currencyexchange.domain.Currency;
+import com.example.currencyexchange.domain.ExchangeRate;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CurrencyRepository extends ReactiveCrudRepository<Currency, Integer> {
+public interface ExchangeRateRepository extends ReactiveCrudRepository<ExchangeRate, Integer> {
 
 }

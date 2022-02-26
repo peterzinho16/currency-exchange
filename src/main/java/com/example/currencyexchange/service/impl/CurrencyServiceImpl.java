@@ -1,43 +1,41 @@
-package com.bindord.eureka.auth.service.impl;
+package com.example.currencyexchange.service.impl;
 
-import com.bindord.eureka.auth.advice.CustomValidationException;
-import com.bindord.eureka.auth.advice.NotFoundValidationException;
-import com.bindord.eureka.auth.domain.master.MsProfession;
-import com.bindord.eureka.auth.generic.BaseServiceImpl;
-import com.bindord.eureka.auth.repository.MsProfessionRepository;
-import com.bindord.eureka.auth.service.MsProfessionService;
-import io.reactivex.Observable;
+import com.example.currencyexchange.advice.CustomValidationException;
+import com.example.currencyexchange.advice.NotFoundValidationException;
+import com.example.currencyexchange.domain.Currency;
+import com.example.currencyexchange.generic.BaseServiceImpl;
+import com.example.currencyexchange.repository.CurrencyRepository;
+import com.example.currencyexchange.service.CurrencyService;
 import io.reactivex.Single;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.UUID;
 
 @Service
-public class MsProfessionServiceImpl extends BaseServiceImpl<MsProfessionRepository> implements MsProfessionService {
+public class CurrencyServiceImpl extends BaseServiceImpl<CurrencyRepository> implements CurrencyService {
 
-    public MsProfessionServiceImpl(MsProfessionRepository repository) {
+    public CurrencyServiceImpl(CurrencyRepository repository) {
         super(repository);
     }
 
     @Override
-    public Mono<MsProfession> save(MsProfession entity) throws NotFoundValidationException, CustomValidationException {
+    public Mono<Currency> save(Currency entity) throws NotFoundValidationException, CustomValidationException {
         return repository.save(entity);
     }
 
     @Override
-    public Mono<MsProfession> update(MsProfession entity) throws NotFoundValidationException, CustomValidationException {
+    public Mono<Currency> update(Currency entity) {
         return repository.save(entity);
     }
 
     @Override
-    public Mono<MsProfession> findOne(UUID id) throws NotFoundValidationException {
+    public Mono<Currency> findOne(Integer id) throws NotFoundValidationException {
         return repository.findById(id);
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         repository.deleteById(id);
     }
 
@@ -47,15 +45,15 @@ public class MsProfessionServiceImpl extends BaseServiceImpl<MsProfessionReposit
     }
 
     @Override
-    public Flux<MsProfession> findAll() {
+    public Flux<Currency> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public Single<MsProfession> findById(UUID id) throws NotFoundValidationException {
+    public Single<Currency> findById(Integer id) throws NotFoundValidationException {
         var msProfessionMono = repository.findById(id).switchIfEmpty(
                 Mono.defer(
-                        ()-> Mono.error(new NotFoundValidationException("Not found"))
+                        () -> Mono.error(new NotFoundValidationException("Not found"))
                 ));
         return Single.fromPublisher(msProfessionMono);
     }

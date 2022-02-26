@@ -1,10 +1,11 @@
-package com.bindord.eureka.auth.validator;
+package com.example.currencyexchange.validator;
 
 import io.reactivex.Completable;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ValidatorImpl implements Validator {
+
     @Override
     public Completable validateUUIDFormat(String uuid) {
         int len = uuid.length();

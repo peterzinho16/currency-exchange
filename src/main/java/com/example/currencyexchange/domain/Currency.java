@@ -1,4 +1,4 @@
-package com.example.currencyexchange.model;
+package com.example.currencyexchange.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 
 @Table
 @Data
-@Builder
 public class Currency {
 
     @Id
@@ -31,5 +30,7 @@ public class Currency {
 
     @Size(max = 60)
     private String modifiedBy;
+
+    public Currency(){}
 
 }

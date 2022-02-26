@@ -1,10 +1,8 @@
-package com.example.currencyexchange.model;
+package com.example.currencyexchange.domain;
 
-import com.example.currencyexchange.util.Constants;
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.Max;
@@ -15,10 +13,8 @@ import java.time.LocalDateTime;
 
 @Table
 @Data
-@Builder
 public class ExchangeRate {
 
-    @Id
     private Integer id;
 
     @NotNull
@@ -32,10 +28,13 @@ public class ExchangeRate {
     private byte sourceUnit;
 
     @Max(value = 1000)
-    private double destinyRatio;
+    private double destinyRate;
 
     @CreatedDate
     private LocalDateTime creationDate;
+
+    @LastModifiedDate
+    private LocalDateTime modifiedDate;
 
     @Size
     private String createdBy;
@@ -43,4 +42,7 @@ public class ExchangeRate {
     private boolean enabled;
 
     private LocalDateTime disabledDate;
+
+    public ExchangeRate() {
+    }
 }

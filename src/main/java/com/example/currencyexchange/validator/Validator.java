@@ -1,4 +1,4 @@
-package com.bindord.eureka.auth.validator;
+package com.example.currencyexchange.validator;
 
 import io.reactivex.Completable;
 

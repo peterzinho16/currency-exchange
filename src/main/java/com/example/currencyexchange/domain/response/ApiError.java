@@ -1,4 +1,4 @@
-package com.bindord.eureka.auth.domain.response;
+package com.example.currencyexchange.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
