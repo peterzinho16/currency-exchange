@@ -1,12 +1,12 @@
 package com.example.currencyexchange.domain;
 
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -18,11 +18,12 @@ public class Currency {
     private Integer id;
 
     @NotBlank
-    @Size(max=100)
+    @Size(max = 100)
     private String name;
 
     @NotBlank
-    @Size(min=3, max=3)
+    @Size(min = 3, max = 3)
+    @Pattern(regexp = "[A-Z]{3}")
     private String code;
 
     @CreatedDate
@@ -31,6 +32,7 @@ public class Currency {
     @Size(max = 60)
     private String modifiedBy;
 
-    public Currency(){}
+    public Currency() {
+    }
 
 }
