@@ -34,3 +34,7 @@ build/
 
 ### Key files
 src/main/resources/private.properties
+
+### Front related
+src/main/frontend/node_modules
+src/main/frontend/dist/
