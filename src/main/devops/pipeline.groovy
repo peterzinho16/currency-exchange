@@ -95,7 +95,7 @@ node {
         dir(SECRET_FOLDER) {
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-secrets.git'
 
-            /*def keyValueProps = [
+            def keyValueProps = [
                     "SVC_NAME:$SVC_NAME",
                     "PRODUCT_NAME:$PRODUCT_NAME"
             ]
@@ -103,7 +103,7 @@ node {
 
             sh "sed -i 's/^/    /' $APPLICATION_PROPERTIES_PATH"
             sh "cat $APPLICATION_PROPERTIES_PATH >> $BASE_CONFIGMAP"
-            sh "cat $BASE_CONFIGMAP"*/
+            sh "cat $BASE_CONFIGMAP"
         }
     }
 
