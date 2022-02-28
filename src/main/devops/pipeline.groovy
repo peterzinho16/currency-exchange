@@ -42,7 +42,7 @@ node {
     def SVC_REPOSITORY_URL = scm.userRemoteConfigs[0].url
     def PRODUCT_NAME = 'currency-exchange'
     def SVC_FOLDER = 'app'
-    def SVC_NAME = ''
+    def SVC_NAME = 'currency-exchange'
     def APPLICATION_PROPERTIES_PATH = ''
     def SVC_FULLPATH = '/home/ubuntu/jenkins/jenkins_home/workspace' + '/' + JOB_NAME + '/' + SVC_FOLDER
 
@@ -70,7 +70,6 @@ node {
         dir(SVC_FOLDER) {
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
 
-            SVC_NAME = getPropValueFromProperties('spring.application.name')
             APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
         }
     }
@@ -92,7 +91,7 @@ node {
             sh "cat $BASE_CONFIGMAP"
         }
 
-        dir(SECRET_FOLDER) {
+        /*dir(SECRET_FOLDER) {
             git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: 'https://github.com/bindord-org/master-secrets.git'
 
             def keyValueProps = [
@@ -104,7 +103,7 @@ node {
             sh "sed -i 's/^/    /' $APPLICATION_PROPERTIES_PATH"
             sh "cat $APPLICATION_PROPERTIES_PATH >> $BASE_CONFIGMAP"
             sh "cat $BASE_CONFIGMAP"
-        }
+        }*/
     }
 
     stage('DEPLOYING CONFIGMAP & SECRETS') {
