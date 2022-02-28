@@ -43,6 +43,7 @@ node {
     def PRODUCT_NAME = 'currency-exchange'
     def SVC_FOLDER = 'app'
     def SVC_NAME = 'currency-exchange'
+    def SVC_BRANCH = 'feature/first-version'
     def APPLICATION_PROPERTIES_PATH = ''
     def SVC_FULLPATH = '/home/ubuntu/jenkins/jenkins_home/workspace' + '/' + JOB_NAME + '/' + SVC_FOLDER
 
@@ -68,7 +69,7 @@ node {
         sh "echo '****** STARTING PHASE: fetching service sources'"
 
         dir(SVC_FOLDER) {
-            git branch: 'main', credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
+            git branch: SVC_BRANCH, credentialsId: GIT_MASTER_CREDENTIALS_ID, url: SVC_REPOSITORY_URL
 
             APPLICATION_PROPERTIES_PATH = "$SVC_NAME/application-$DEPLOY_ENV" + ".yaml"
         }
