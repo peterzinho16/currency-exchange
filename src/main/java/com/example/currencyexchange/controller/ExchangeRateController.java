@@ -43,8 +43,13 @@ public class ExchangeRateController {
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Void> save(@Valid @RequestBody NewExchangeRateResource newExchangeRateResource) throws CustomValidationException, NotFoundValidationException {
-        return exchangeRateService.save(exchangeRateMapper.toModel(newExchangeRateResource))
+    public Mono<Void> save(@Valid @RequestBody NewExchangeRateResource newExchangeRateResource,
+                           @RequestHeader(name = "Authorization") String authorization) throws CustomValidationException, NotFoundValidationException {
+        return validator
+                .validateDifferentIds(
+                        newExchangeRateResource.getSourceId(),
+                        newExchangeRateResource.getDestinyId())
+                .and(exchangeRateService.save(exchangeRateMapper.toModel(newExchangeRateResource)))
                 .then(Mono.empty());
     }
 
@@ -80,7 +85,8 @@ public class ExchangeRateController {
             responseCode = "204")
     @PatchMapping(value = "/{id}")
     public Mono<ResponseEntity<Void>> update(@PathVariable @NotNull final Integer id,
-                                             @Valid @RequestBody final ExchangeRatePatchResource patch) throws NotFoundValidationException {
+                                             @Valid @RequestBody final ExchangeRatePatchResource patch,
+                                             @RequestHeader(name = "Authorization") String authorization) throws NotFoundValidationException {
 
         // Find the item and update the instance
         return exchangeRateService.findById(id)

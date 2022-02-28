@@ -39,7 +39,8 @@ public class CurrencyController {
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Void> save(@Valid @RequestBody Currency currency) throws CustomValidationException, NotFoundValidationException {
+    public Mono<Void> save(@Valid @RequestBody Currency currency,
+                           @RequestHeader(name = "Authorization") String authorization) throws CustomValidationException, NotFoundValidationException {
         return currencyService.save(currency)
                 .then(Mono.empty());
     }
@@ -51,7 +52,7 @@ public class CurrencyController {
             produces = {MediaType.APPLICATION_JSON_VALUE},
             consumes = {MediaType.ALL_VALUE})
     public Flux<Currency> getAll(
-            @RequestHeader(required = true, name = "Authorization") String authorization) {
+            @RequestHeader(name = "Authorization") String authorization) {
         return currencyService.findAll();
     }
 

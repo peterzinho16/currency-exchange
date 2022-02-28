@@ -1,7 +1,9 @@
 package com.example.currencyexchange.validator;
 
+import com.example.currencyexchange.advice.CustomValidationException;
 import io.reactivex.Completable;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 @Component
 public class ValidatorImpl implements Validator {
@@ -29,5 +31,11 @@ public class ValidatorImpl implements Validator {
             throw new IllegalArgumentException("Invalid UUID string: " + uuid);
         }
         return Completable.complete();
+    }
+
+    @Override
+    public Mono<Void> validateDifferentIds(Integer primaryId, Integer secondaryId) throws CustomValidationException {
+        if (!primaryId.equals(secondaryId)) return Mono.empty();
+        throw new CustomValidationException("Validation failed");
     }
 }

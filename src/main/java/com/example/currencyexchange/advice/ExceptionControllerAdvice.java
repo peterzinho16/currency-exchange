@@ -60,6 +60,13 @@ public class ExceptionControllerAdvice {
         return Mono.just(new ApiError(HttpStatus.NOT_FOUND, ex));
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(CustomValidationException.class)
+    public @ResponseBody
+    Mono<ApiError> handlerCustomValidationException(CustomValidationException ex) {
+        return Mono.just(new ApiError(HttpStatus.BAD_REQUEST, ex.getMessage(), ex));
+    }
+
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DataIntegrityViolationException.class)
