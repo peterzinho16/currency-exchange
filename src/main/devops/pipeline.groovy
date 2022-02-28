@@ -40,7 +40,7 @@ node {
 
     // SERVICE PROPS
     def SVC_REPOSITORY_URL = scm.userRemoteConfigs[0].url
-    def PRODUCT_NAME = 'currency-exchange-challengue'
+    def PRODUCT_NAME = 'currency-exchange'
     def SVC_FOLDER = 'app'
     def SVC_NAME = ''
     def APPLICATION_PROPERTIES_PATH = ''
