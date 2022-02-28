@@ -7,7 +7,7 @@ spec:
   ports:
     - targetPort: 8080
       port: 8080
-      nodePort: 8090
+      nodePort: 30123
   selector:
     service: currency-exchange
     type: backend
