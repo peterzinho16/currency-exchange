@@ -114,7 +114,7 @@ node {
         withKubeConfig([credentialsId: K8S_LOCAL]) {
             sh "kubectl apply -f $MASTER_FOLDER/$BASE_CONFIGMAP"
 
-            sh "kubectl apply -f $SECRET_FOLDER/$BASE_SECRETMAP"
+//            sh "kubectl apply -f $SECRET_FOLDER/$BASE_SECRETMAP"
         }
     }
 
