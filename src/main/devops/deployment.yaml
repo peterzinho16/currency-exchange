@@ -7,7 +7,7 @@ metadata:
     app: hogarep
     type: backend
     consume: db
-    db: mongo
+    db: postgres
   namespace: default
 spec:
   selector:
@@ -48,16 +48,21 @@ spec:
             initialDelaySeconds: 10
             periodSeconds: 10
           env:
-            - name: SERVER_PORT
+            - name: PG_URL
               valueFrom:
                 secretKeyRef:
                   name: secret-currency-exchange
-                  key: SERVER_PORT
-            - name: SPRING_DATA_MONGODB_URI
+                  key: PG_URL
+            - name: PG_USER
               valueFrom:
                 secretKeyRef:
                   name: secret-currency-exchange
-                  key: SPRING_DATA_MONGODB_URI
+                  key: PG_USER
+            - name: PG_PWD
+              valueFrom:
+                secretKeyRef:
+                  name: secret-currency-exchange
+                  key: PG_PWD
   replicas: 1
   strategy:
     type: RollingUpdate

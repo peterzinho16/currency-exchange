@@ -40,7 +40,7 @@ node {
 
     // SERVICE PROPS
     def SVC_REPOSITORY_URL = scm.userRemoteConfigs[0].url
-    def PRODUCT_NAME = 'hogarep'
+    def PRODUCT_NAME = 'currency-exchange-challengue'
     def SVC_FOLDER = 'app'
     def SVC_NAME = ''
     def APPLICATION_PROPERTIES_PATH = ''
@@ -50,7 +50,6 @@ node {
     def COMMON_PATH = 'src/main/devops'
     def SVC_DEPLOYMENT = "$COMMON_PATH/deployment.yaml"
     def SVC_SERVICE = "$COMMON_PATH/service.yaml"
-    def SVC_INGRESS = "$COMMON_PATH/ingress.yaml"
     def SVC_HPA = "$COMMON_PATH/hpa.yaml"
 
     //DOCKER REGISTRY PROPS
@@ -139,7 +138,7 @@ node {
                 "-v $MVN_REPOSITORY:$MVN_REPOSITORY " +
                 "-w /$SVC_FOLDER " +
                 "maven:3.8.1-openjdk-11-slim " +
-                "mvn clean package"
+                "mvn clean package -DskipTests=true"
 
         def SVC_VERSION = sh(script: "cat $SVC_FOLDER/pom.xml " +
                 '| grep -B 1 \'name\' ' +
@@ -197,17 +196,6 @@ node {
 
             replaceVariablesInProperties(keyValueProps, SVC_SERVICE)
 
-            def CONTEX_PATH_PARAM = 'SERVICE_INGRESS_CONTEXT_PATH'
-
-            def SVC_CONTEXT_PATH = getPropValueFromProperties('service.ingress.context-path')
-
-            def keyValuePropsTwo = [
-                    "$CONTEX_PATH_PARAM:$SVC_CONTEXT_PATH",
-                    "$SVC_NAME_PARAM:$SVC_NAME"
-            ]
-
-            replaceVariablesInProperties(keyValuePropsTwo, SVC_INGRESS, true)
-
             def keyValuePropsThree = [
                     "$SVC_NAME_PARAM:$SVC_NAME"
             ]
@@ -216,7 +204,6 @@ node {
 
             withKubeConfig([credentialsId: K8S_LOCAL]) {
                 sh "kubectl apply -f $SVC_SERVICE"
-                sh "kubectl apply -f $SVC_INGRESS"
                 sh "kubectl apply -f $SVC_HPA"
             }
 

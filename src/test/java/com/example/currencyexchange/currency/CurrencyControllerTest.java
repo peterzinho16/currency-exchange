@@ -61,7 +61,6 @@ public class CurrencyControllerTest {
 
     @BeforeEach
     public void setUp() {
-
         webTestClient = webTestClient.mutate()
                 .responseTimeout(Duration.ofMillis(30000))
                 .build();
@@ -104,7 +103,7 @@ public class CurrencyControllerTest {
 
         Mockito.when(repository.save(currency)).thenReturn(Mono.just(currency));
         Mockito.when(currencyService.save(currency)).thenReturn(Mono.just(currency));
-        ;
+
         webTestClient.post()
                 .uri(controllerPath)
                 .contentType(MediaType.APPLICATION_JSON)
