@@ -85,3 +85,7 @@ VALUES ( 'peterpaul16', '2022-02-24 21:58:42.000000', 0.140, null, true, 1, 5, 3
 INSERT INTO public.exchange_rate (created_by, creation_date, destiny_rate, disabled_date, enabled, source_unit,
                                   source_id, destiny_id)
 VALUES ( 'peterpaul16', '2022-02-24 21:58:42.000000', 0.810, null, true, 1, 5, 4);
+
+INSERT INTO public.country (code, creation_date, modified_by, name) VALUES ('PE', '2022-02-24 21:56:41.000000', null, 'Peru');
+INSERT INTO public.country (code, creation_date, modified_by, name) VALUES ('US', '2022-02-24 21:57:03.000000', null, 'Estados Unidos');
+INSERT INTO public.country (code, creation_date, modified_by, name) VALUES ('BR', '2022-02-24 21:57:15.000000', null, 'Brasil');

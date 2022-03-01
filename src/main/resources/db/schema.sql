@@ -42,3 +42,18 @@ create table exchange_rate
 alter table exchange_rate
     owner to postgres;
 
+create table country
+(
+    id            serial
+        primary key,
+    name          varchar(100)   not null
+        constraint uk_name_country
+            unique,
+    code text not null,
+    creation_date timestamp    not null,
+    modified_by   varchar(60)
+);
+
+alter table exchange_rate
+    owner to postgres;
+
